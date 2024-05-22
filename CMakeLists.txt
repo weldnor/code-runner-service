@@ -1,6 +1,27 @@
-cmake_minimum_required(VERSION 3.28)
-project(code_runner_service)
+cmake_minimum_required(VERSION 3.25.0)
 
-set(CMAKE_CXX_STANDARD 17)
+# CRS = Code Runner Service
+project(CRS C)
 
-add_executable(code_runner_service main.cpp)
+set(CMAKE_C_STANDARD 17)
+set(CMAKE_C_STANDARD_REQUIRED TRUE)
+
+set(AppName ${CMAKE_PROJECT_NAME})
+
+set(CRS_APP_DIRECTORY ${CMAKE_SOURCE_DIR}/app)
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CRS_APP_DIRECTORY})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CRS_APP_DIRECTORY})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CRS_APP_DIRECTORY})
+
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CRS_APP_DIRECTORY})
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE ${CRS_APP_DIRECTORY})
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CRS_APP_DIRECTORY})
+
+add_executable(
+        ${AppName} main.c
+        third_party/mongoose.c
+        third_party/mongoose.h
+)
+
+target_link_libraries(${AppName} PRIVATE)
