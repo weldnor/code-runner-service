@@ -24,4 +24,8 @@ add_executable(
         third_party/mongoose.h
 )
 
-target_link_libraries(${AppName} PRIVATE)
+add_subdirectory(CRS/runner)
+add_subdirectory(CRS/server)
+add_subdirectory(CRS/common)
+
+target_link_libraries(${AppName} PRIVATE CRS_Runner CRS_Server CRS_Common)
