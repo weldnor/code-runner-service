@@ -25,6 +25,7 @@ add_executable(
 )
 
 add_subdirectory(third_party)
+add_subdirectory(CRS/domain)
 add_subdirectory(CRS/runner)
 add_subdirectory(CRS/server)
 add_subdirectory(CRS/common)

@@ -3,28 +3,50 @@
 //
 
 
-#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include "CRS_Domain.h"
+#include "CRS_Common.h"
 
-struct CRS_test {
-    char *input;
-    char *expected;
-};
+static char *create_temp_directory() {
+    char template[] = "/tmp/tmpdir.XXXXXX";
+    char *dir_name = mkdtemp(template);
 
-enum CRS_lang {
-    CPP,
-    PYTHON,
-};
-
-enum CRS_lang CRS_lang_by_name(char *name) {
-    if (strcmp(name, "cpp") == 0) {
-        return CPP;
+    if (dir_name == NULL) {
+        perror("mkdtemp failed: ");
+        return NULL;
     }
-
-    if (strcmp(name, "python") == 0) {
-        return PYTHON;
-    }
+    return dir_name;
 }
 
-void CRS_run_code(char *code, enum CRS_lang lang, struct CRS_test tests[], int timeout) {
 
+static void write_code_to_file(char *filepath, char *code) {
+    FILE *fptr;
+    fptr = fopen(filepath, "w");
+    fprintf(fptr, "%s", code);
+    fclose(fptr);
 }
+
+static void run_code(char *filepath) {
+    char *command = concat("python3 ", filepath);
+    system(command);
+}
+
+
+void CRS_run_code(struct CRS_attempt attempt) {
+    printf("running code...\n");
+
+    char *temp_dir_path = create_temp_directory();
+
+    if (temp_dir_path == NULL) {
+        //todo
+    }
+
+
+    char *filepath = concat(temp_dir_path, "/main.py");
+    write_code_to_file(filepath, attempt.code);
+
+    run_code(filepath);
+}
+
+

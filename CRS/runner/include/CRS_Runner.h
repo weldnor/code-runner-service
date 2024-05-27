@@ -5,9 +5,6 @@
 #ifndef CRS_CRS_RUNNER_H
 #define CRS_CRS_RUNNER_H
 
-struct CRS_test {
-};
-
-void CRS_run_code(char *code, struct CRS_test tests[], int timeout);
+void CRS_run_code(struct CRS_attempt attempt);
 
 #endif //CRS_CRS_RUNNER_H
