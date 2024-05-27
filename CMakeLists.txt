@@ -20,12 +20,13 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CRS_APP_DIRECTORY})
 
 add_executable(
         ${AppName} main.c
-        third_party/mongoose.c
-        third_party/mongoose.h
+        third_party/src/mongoose.c
+        third_party/include/mongoose.h
 )
 
+add_subdirectory(third_party)
 add_subdirectory(CRS/runner)
 add_subdirectory(CRS/server)
 add_subdirectory(CRS/common)
 
-target_link_libraries(${AppName} PRIVATE CRS_Runner CRS_Server CRS_Common)
+target_link_libraries(${AppName} PRIVATE third_party CRS_Runner CRS_Server CRS_Common)

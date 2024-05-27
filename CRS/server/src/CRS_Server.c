@@ -3,7 +3,7 @@
 //
 
 #include <stdlib.h>
-#include "../../../third_party/mongoose.h"
+#include "mongoose.h"
 #include "CRS_Runner.h"
 #include "CRS_Common.h"
 
