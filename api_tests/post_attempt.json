@@ -1,0 +1,9 @@
+{
+  "code" : "f = open(\"input.txt\")\nline = f.readline()\nf.close()\n\na = int(line.split(\" \")[0])\nb = int(line.split(\" \")[1])\n\nf = open(\"output.txt\", \"w\")\nf.write(str(a + b))\nf.close()",
+  "lang": "python",
+  "tests": [{
+    "input":  "2 2",
+    "expected": "4"
+  }],
+  "timeout_s": 1
+}

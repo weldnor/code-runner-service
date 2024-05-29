@@ -1,3 +1,3 @@
-POST http://localhost:8000/api/v1/attempt
-{"code" : "print(\"hello worlddddddddddd!\")", "lang": "python"}
+POST http://{{host}}/api/v1/attempt
+file,post_attempt.json;
 HTTP 200

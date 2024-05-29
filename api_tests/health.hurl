@@ -1,2 +1,2 @@
-GET http://localhost:8000/api/v1/health
+GET http://{{host}}/api/v1/health
 HTTP 200

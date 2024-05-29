@@ -1,0 +1,1 @@
+hurl --variable host=localhost:8000 --test *.hurl

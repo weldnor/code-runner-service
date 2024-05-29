@@ -21,8 +21,9 @@ struct CRS_attempt {
     char *attempt_id;
     char *code;
     enum CRS_lang lang;
-    int timeout_limit_ms;
-    struct CRS_test tests[];
+    int timeout_s;
+    size_t tests_count;
+    struct CRS_test *tests;
 };
 
 enum CRS_lang CRS_lang_by_name(char *name);

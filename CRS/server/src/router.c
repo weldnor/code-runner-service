@@ -17,37 +17,79 @@ static void get_health(struct mg_connection *c, const struct mg_http_message *m)
     mg_http_reply(c, 200, "", json, MG_ESC("status"), MG_ESC("OK"));
 }
 
-static void post_attempt(struct mg_connection *c, const struct mg_http_message *m) {
-    printf("attempt added\n");
+static void parse_attempt_tests(struct mg_str tests_json, struct CRS_test** tests, size_t*count_of_tests){
+    *count_of_tests = 0;
 
+    size_t ofs = 0;
+    struct mg_str key, val;
+
+    while ((ofs = mg_json_next(tests_json, ofs, &key, &val)) > 0) {
+        (*count_of_tests)++;
+    }
+
+    struct CRS_test *tests_arr = malloc(sizeof (struct CRS_test) * *count_of_tests);
+
+    int i = 0;
+    while ((ofs = mg_json_next(tests_json, ofs, &key, &val)) > 0) {
+        tests_arr[i].input = mg_json_get_str(val, "$.input");
+        tests_arr[i].expected = mg_json_get_str(val, "$.expected");
+        i++;
+    }
+
+    *tests = tests_arr;
+}
+
+static struct CRS_attempt parse_attempt(struct mg_str json){
     struct CRS_attempt attempt;
 
-    char *code = mg_json_get_str(m->body, "$.code");
+    char *code = mg_json_get_str(json, "$.code");
     if (code == NULL) {
         //todo
     }
     attempt.code = code;
 
-    char *lang = mg_json_get_str(m->body, "$.lang");
+    char *lang = mg_json_get_str(json, "$.lang");
     if (lang == NULL) {
         //todo
     }
     //todo lang not exists
     attempt.lang = CRS_lang_by_name(lang);
 
-    //todo add logger
-    printf("%s\n", code);
-    printf("%s\n", lang);
 
-    CRS_run_code(attempt);
+    long timeout_s = mg_json_get_long(json, "$.timeout_s", -1);
+    if (timeout_s == -1) {
+        //todo
+    }
+    attempt.timeout_s = (int) timeout_s;
 
-    const char *json = "{\"message\":\"%m:%m\"}";
-    mg_http_reply(c, 200, "", json, MG_ESC("status"), MG_ESC("OK"));
+    struct mg_str tests_json = mg_json_get_tok(json, "$.tests");
+
+    attempt.tests = NULL;
+    parse_attempt_tests(tests_json, &attempt.tests, &attempt.tests_count);
+    return attempt;
 }
 
-static struct route routes[2];
+static void post_attempt(struct mg_connection *c, const struct mg_http_message *m) {
+    struct CRS_attempt attempt = parse_attempt(m->body);
 
-#define ROUTES_COUNT (sizeof(routes) / sizeof(routes[0]))
+    enum CRS_run_status status = CRS_run_code(attempt);
+
+    const char *json = "{\"status\":\"%m\"}";
+
+    if(status == FAIL){
+        mg_http_reply(c, 200, "", json, MG_ESC("FAIL"));
+    }
+
+    if(status == PASS){
+        mg_http_reply(c, 200, "", json, MG_ESC("OK"));
+    }
+
+    mg_http_reply(c, 200, "", json, MG_ESC("UNKNOWN"));
+}
+
+#define ROUTES_COUNT 2
+
+static struct route routes[ROUTES_COUNT];
 
 void init_routes() {
     // GET health
