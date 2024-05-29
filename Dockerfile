@@ -4,6 +4,8 @@ WORKDIR /root
 
 COPY . .
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 RUN apt update && \
     apt  install cmake clang gcc -y && \
     cmake -S . -B ./build -D CMAKE_BUILD_TYPE=Release -D BUILD_SHARED_LIBS=FALSE && \
