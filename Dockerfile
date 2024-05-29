@@ -16,6 +16,9 @@ FROM ubuntu:latest
 
 WORKDIR /root
 
+RUN apt update && \
+    apt install python3 -y
+
 COPY --from=build /root/app/CRS /root/CRS
 
 RUN chmod +x /root/CRS

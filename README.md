@@ -14,7 +14,16 @@ via Docker:
 
 ```shell
 docker build . --tag crs
-docker run -d crs
+docker run -p 8000:8000 crs
+```
+
+## Test
+
+Api tests:
+
+```shell
+cd ./api-tests
+./test.sh
 ```
 
 ## API Reference
@@ -29,7 +38,7 @@ GET /api/v1/health
 
 ```json
 {
-  "status": "OK"
+  "status": "PASS"
 }
 ```
 

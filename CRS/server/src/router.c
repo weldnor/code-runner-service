@@ -74,14 +74,14 @@ static void post_attempt(struct mg_connection *c, const struct mg_http_message *
 
     enum CRS_run_status status = CRS_run_code(attempt);
 
-    const char *json = "{\"status\":\"%m\"}";
+    const char *json = "{\"status\": %m}";
 
     if(status == FAIL){
         mg_http_reply(c, 200, "", json, MG_ESC("FAIL"));
     }
 
     if(status == PASS){
-        mg_http_reply(c, 200, "", json, MG_ESC("OK"));
+        mg_http_reply(c, 200, "", json, MG_ESC("PASS"));
     }
 
     mg_http_reply(c, 200, "", json, MG_ESC("UNKNOWN"));
