@@ -3,8 +3,8 @@
 //
 
 #include <stdlib.h>
-#include "CRS_common.h"
-#include "CRS_runner_util.h"
+#include <CRS/runner/CRS_runner_util.h>
+#include <CRS/common/CRS_common.h>
 
 static char *get_timeout_as_string(int timeout_s);
 

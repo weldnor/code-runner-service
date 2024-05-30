@@ -5,7 +5,7 @@
 #ifndef CRS_SRS_SERVER_H
 #define CRS_SRS_SERVER_H
 
-#include "CRS_common.h"
+#include <CRS/common/CRS_common.h>
 
 typedef int CRS_PORT;
 

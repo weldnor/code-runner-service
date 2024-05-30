@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.22.0)
 
-# CRS = Code Runner Service
-project(CRS C)
+# CRS_1 = Code Runner Service
+project(CRS_1 C)
 
 set(CMAKE_C_STANDARD 17)
 set(CMAKE_C_STANDARD_REQUIRED TRUE)
@@ -25,9 +25,6 @@ add_executable(
 )
 
 add_subdirectory(third_party)
-add_subdirectory(CRS/domain)
-add_subdirectory(CRS/runner)
-add_subdirectory(CRS/server)
-add_subdirectory(CRS/common)
+add_subdirectory(CRS)
 
-target_link_libraries(${AppName} PRIVATE third_party CRS_Runner CRS_Server CRS_Common)
+target_link_libraries(${AppName} PRIVATE third_party CRS_Root)

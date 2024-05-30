@@ -3,10 +3,10 @@
 //
 
 #include <stdlib.h>
-#include "mongoose.h"
-#include "CRS_common.h"
-#include "CRS_router.h"
-#include "CRS_server.h"
+#include <mongoose.h>
+#include <CRS/server/CRS_router.h>
+#include <CRS/server/CRS_server.h>
+#include <CRS/common/CRS_common.h>
 
 
 char *get_url_from_config(const struct CRS_server_config *config);

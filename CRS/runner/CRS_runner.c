@@ -3,14 +3,13 @@
 //
 
 
-#include <stdio.h>
 #include <string.h>
-#include "CRS_domain.h"
-#include "CRS_runner.h"
-#include "CRS_runner_util.h"
-#include "CRS_runner_python.h"
-#include "CRS_runner_cpp.h"
-#include "CRS_common.h"
+#include <CRS/runner/CRS_runner_util.h>
+#include <CRS/domain/CRS_domain.h>
+#include <CRS/runner/CRS_runner_cpp.h>
+#include <CRS/runner/CRS_runner_python.h>
+#include <CRS/common/CRS_common.h>
+#include <CRS/runner/CRS_runner.h>
 
 static int validate_test(char *expected, char *actual) {
     return strcmp(expected, actual);
@@ -59,6 +58,9 @@ enum CRS_run_status CRS_run_code(struct CRS_attempt attempt) {
     prepare_test_environment(&attempt, &lang, temp_dir_path);
 
     for (int i = 0; i < attempt.tests_count; i++) {
+        CRS_log_info("running test");
+
+
         struct CRS_test test = attempt.tests[i];
 
         prepare_directory_before_test(temp_dir_path, test.input);

@@ -6,7 +6,7 @@
 #define CRS_CRS_DOMAIN_H
 
 #include <stdbool.h>
-#include "CRS_common.h"
+#include <CRS/common/CRS_common.h>
 
 typedef char *CRS_ATTEMPT_ID;
 

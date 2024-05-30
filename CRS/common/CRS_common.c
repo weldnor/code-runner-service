@@ -1,6 +1,6 @@
 #include <malloc.h>
 #include <string.h>
-#include "time.h"
+#include <time.h>
 
 
 char *itoa(int value, char *result, int base) {

@@ -1,6 +1,5 @@
 #include <stdio.h>
-#include "CRS_server.h"
-#include "CRS_common.h"
+#include <CRS/server/CRS_server.h>
 
 static void setup_output_buffer() { setvbuf(stdout, NULL, _IONBF, -1); }
 

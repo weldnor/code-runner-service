@@ -3,8 +3,8 @@
 //
 
 #include <string.h>
-#include "CRS_domain.h"
-#include "stdbool.h"
+#include <stdbool.h>
+#include <CRS/domain/CRS_domain.h>
 
 enum CRS_lang CRS_lang_by_name(char *name) {
     if (strcmp(name, "cpp") == 0) {
