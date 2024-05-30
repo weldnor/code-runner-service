@@ -52,7 +52,7 @@ int run_code(struct CRS_attempt *attempt, const enum CRS_lang *lang, const char 
 enum CRS_run_status CRS_run_code(struct CRS_attempt attempt) {
     CRS_log_info("start running code...");
 
-    const enum CRS_lang lang = attempt.lang;
+    const CRS_lang lang = attempt.lang;
 
     const char *temp_dir_path = create_temp_directory();
 

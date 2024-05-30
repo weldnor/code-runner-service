@@ -68,7 +68,7 @@ static bool validate_tests_count(struct CRS_attempt *attempt) {
 }
 
 
-bool CRS_validate_attempt(struct CRS_attempt *attempt) {
+bool CRS_validate_attempt(CRS_attempt *attempt) {
     return validate_code(attempt)
            && validate_lang(attempt)
            && validate_timeout_s(attempt)

@@ -9,3 +9,5 @@ add_library(CRS_Domain STATIC ${SOURCE_FILES})
 
 # Set the include directories
 target_include_directories(CRS_Domain PRIVATE src/ PUBLIC include/)
+
+target_link_libraries(CRS_Domain PRIVATE CRS_Common)

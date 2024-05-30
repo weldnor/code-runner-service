@@ -1,13 +1,8 @@
 #include "mongoose.h"
 #include "CRS_domain.h"
 #include "CRS_runner.h"
-
-struct route {
-    struct mg_str pattern;
-    struct mg_str method;
-
-    void (*fn)(struct mg_connection *, const struct mg_http_message *);
-};
+#include "CRS_common.h"
+#include "CRS_router.h"
 
 // endpoints
 static void ok_get_health_reply(struct mg_connection *c) {
@@ -102,7 +97,12 @@ static void unknown_post_attempt_reply(struct mg_connection *c) {
 static void post_attempt(struct mg_connection *c, const struct mg_http_message *m) {
     struct CRS_attempt attempt = parse_attempt(m->body);
 
-    enum CRS_run_status status = CRS_run_code(attempt);
+    if (!CRS_validate_attempt(&attempt)) {
+        CRS_log_warn("Invalid attempt");
+        return; //todo fixme
+    }
+
+    CRS_run_status status = CRS_run_code(attempt);
 
     if (status == FAIL) {
         fail_post_attempt_reply(c);
@@ -117,7 +117,7 @@ static void post_attempt(struct mg_connection *c, const struct mg_http_message *
 
 #define ROUTES_COUNT 2
 
-static struct route routes[ROUTES_COUNT];
+static route routes[ROUTES_COUNT];
 
 void init_routes() {
     // GET health

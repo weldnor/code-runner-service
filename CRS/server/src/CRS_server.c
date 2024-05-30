@@ -71,5 +71,5 @@ static char *get_port_as_string(const int port) {
 
 char *get_url_from_config(const struct CRS_server_config *config) {
     char *port = get_port_as_string(config->port);
-    return concat("http://0.0.0.0:", port); //todo fixme
+    return concat("http://0.0.0.0:", port);
 }

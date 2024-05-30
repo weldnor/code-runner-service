@@ -5,11 +5,11 @@
 #ifndef CRS_CRS_RUNNER_H
 #define CRS_CRS_RUNNER_H
 
-enum CRS_run_status {
+typedef enum CRS_run_status {
     PASS,
     FAIL,
-};
+} CRS_run_status;
 
-enum CRS_run_status CRS_run_code(struct CRS_attempt attempt);
+CRS_run_status CRS_run_code(struct CRS_attempt attempt);
 
 #endif //CRS_CRS_RUNNER_H

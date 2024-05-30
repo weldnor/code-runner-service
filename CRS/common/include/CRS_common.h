@@ -5,6 +5,8 @@
 #ifndef CRS_CRS_COMMON_H
 #define CRS_CRS_COMMON_H
 
+typedef char *CRS_TEXT;
+
 char *itoa(int value, char *result, int base);
 
 char *concat(const char *s1, const char *s2);
