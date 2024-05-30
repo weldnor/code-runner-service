@@ -2267,7 +2267,7 @@ return true;
 //
 // abcdef
 // --xyz
-// Content-Disposition: form-data; name="foo"; filename="a.txt"
+// Content-Disposition: form-data; name="get_timeout_as_string"; filename="a.txt"
 // Content-Type: text/plain
 //
 // hello world

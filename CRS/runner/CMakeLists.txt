@@ -2,6 +2,12 @@ project(CRS_Runner)
 
 set(SOURCE_FILES
         src/CRS_Runner.c
+        src/cpp_runner.c
+        src/cpp_runner.h
+        src/python_runner.c
+        src/python_runner.h
+        src/util.c
+        src/util.h
 )
 
 # Add the library with the specified source files
