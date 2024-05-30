@@ -14,7 +14,7 @@ static char *create_temp_directory() {
     char temp_dir_name[] = "/tmp/temp_XXXXXX";
     mkdtemp(temp_dir_name);
 
-    char* dir_path = malloc(strlen(temp_dir_name) + 1); // +1 для нулевого символа конца строки
+    char *dir_path = malloc(strlen(temp_dir_name) + 1); // +1 для нулевого символа конца строки
     if (dir_path == NULL) {
         perror("Ошибка выделения памяти");
         return NULL;
@@ -33,14 +33,14 @@ static void write_to_file(char *filepath, char *code) {
     fclose(fptr);
 }
 
-static char* read_from_file(char *filepath) {
+static char *read_from_file(char *filepath) {
     FILE *file;
-    char* buffer = malloc(sizeof (char) * 10000); // initialize buffer to NULL
+    char *buffer = malloc(sizeof(char) * 10000); // initialize buffer to NULL
 
     //Open file for reading
     file = fopen(filepath, "r");
 
-    if (file  == NULL) {
+    if (file == NULL) {
         printf("Error: Failed to open file '%s'.\n", filepath);
         return NULL;
     }
@@ -49,16 +49,16 @@ static char* read_from_file(char *filepath) {
     return buffer;
 }
 
-static void delete_file(char *filepath){
+static void delete_file(char *filepath) {
     remove(filepath);
 }
 
 static void write_code_to_file(const char *temp_dir_path, char *code) {
-    char* path = concat(temp_dir_path  , "/main.py");
-    write_to_file(path,code);
+    char *path = concat(temp_dir_path, "/main.py");
+    write_to_file(path, code);
 }
 
-static int validate_test(char *expected, char *actual){
+static int validate_test(char *expected, char *actual) {
     return strcmp(expected, actual);
 }
 
@@ -67,15 +67,15 @@ static int run_code(char *temp_dir_path, int timeout_s) {
     char timeout_s_as_string[10];
     itoa(timeout_s, timeout_s_as_string, 10);
 
-    char* code_file_path = concat(temp_dir_path, "/main.py");
+    char *code_file_path = concat(temp_dir_path, "/main.py");
 
     // create command
     char *command;
-    command = concat("cd  "  , temp_dir_path);
+    command = concat("cd  ", temp_dir_path);
     command = concat(command, " ; timeout ");
-    command = concat(command , timeout_s_as_string);
+    command = concat(command, timeout_s_as_string);
     command = concat(command, " python3 ");
-    command = concat(command,  code_file_path);
+    command = concat(command, code_file_path);
 
     return system(command);
 }
@@ -87,7 +87,7 @@ enum CRS_run_status CRS_run_code(struct CRS_attempt attempt) {
 
     write_to_file(concat(temp_dir_path, "/main.py"), attempt.code);
 
-    for (int i = 0; i <attempt.tests_count; i++){
+    for (int i = 0; i < attempt.tests_count; i++) {
         struct CRS_test test = attempt.tests[i];
 
         delete_file(concat(temp_dir_path, "/input.txt"));
@@ -96,15 +96,15 @@ enum CRS_run_status CRS_run_code(struct CRS_attempt attempt) {
         write_to_file(concat(temp_dir_path, "/input.txt"), test.input);
         int run_status = run_code(temp_dir_path, attempt.timeout_s);
 
-        if(run_status != 0){
+        if (run_status != 0) {
             return FAIL;
         }
 
-        char* actual = read_from_file(concat(temp_dir_path, "/output.txt"));
+        char *actual = read_from_file(concat(temp_dir_path, "/output.txt"));
 
         int result = validate_test(test.expected, actual);
 
-        if(result != 0){
+        if (result != 0) {
             return FAIL;
         }
     }

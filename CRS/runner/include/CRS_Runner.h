@@ -5,7 +5,7 @@
 #ifndef CRS_CRS_RUNNER_H
 #define CRS_CRS_RUNNER_H
 
-enum CRS_run_status{
+enum CRS_run_status {
     PASS,
     FAIL,
 };
