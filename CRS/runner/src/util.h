@@ -8,8 +8,6 @@
 
 char *create_temp_directory();
 
-void create_input_file(const char *temp_dir_path);
-
 void create_empty_output_file(const char *temp_dir_path);
 
 char *read_from_file(const char *filepath);
