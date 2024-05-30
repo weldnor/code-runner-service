@@ -51,7 +51,7 @@ POST /api/v1/attempt
 Params:
 
 - code (string)
-- lang (string, only python supported now)
+- lang (string, cpp or python)
 - tests (array of {input: })
 
 ```json
