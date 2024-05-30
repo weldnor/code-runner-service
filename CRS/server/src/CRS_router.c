@@ -1,7 +1,6 @@
 #include "mongoose.h"
-#include "CRS_Domain.h"
-#include "CRS_Runner.h"
-
+#include "CRS_domain.h"
+#include "CRS_runner.h"
 
 struct route {
     struct mg_str pattern;
@@ -42,30 +41,43 @@ static void parse_attempt_tests(struct mg_str tests_json, struct CRS_test **test
     *tests = tests_arr;
 }
 
-static struct CRS_attempt parse_attempt(struct mg_str json) {
-    struct CRS_attempt attempt;
-
+static char *parse_attempt_code(struct mg_str json) {
     char *code = mg_json_get_str(json, "$.code");
     if (code == NULL) {
         //todo
     }
-    attempt.code = code;
+    return code;
+}
 
+static char *parse_attempt_lang(struct mg_str json) {
     char *lang = mg_json_get_str(json, "$.lang");
     if (lang == NULL) {
         //todo
     }
-    //todo lang not exists
+    return lang;
+}
+
+static long parse_attempt_timeout_s(struct mg_str json) {
+    return mg_json_get_long(json, "$.timeout_s", -1);;
+}
+
+static struct mg_str parse_attempt_tests_as_str(struct mg_str json) {
+    return mg_json_get_tok(json, "$.tests");
+}
+
+static struct CRS_attempt parse_attempt(struct mg_str json) {
+    struct CRS_attempt attempt;
+
+    char *code = parse_attempt_code(json);
+    attempt.code = code;
+
+    char *lang = parse_attempt_lang(json);
     attempt.lang = CRS_lang_by_name(lang);
 
-
-    long timeout_s = mg_json_get_long(json, "$.timeout_s", -1);
-    if (timeout_s == -1) {
-        //todo
-    }
+    long timeout_s = parse_attempt_timeout_s(json);
     attempt.timeout_s = (int) timeout_s;
 
-    struct mg_str tests_json = mg_json_get_tok(json, "$.tests");
+    struct mg_str tests_json = parse_attempt_tests_as_str(json);
 
     attempt.tests = NULL;
     parse_attempt_tests(tests_json, &attempt.tests, &attempt.tests_count);
@@ -119,7 +131,53 @@ void init_routes() {
     routes[1].fn = post_attempt;
 }
 
+static bool validate_request_uri_by_max_len(const struct mg_http_message *m) {
+    if (m->uri.len < 100) {
+        return true;
+    }
+    return false;
+}
+
+static int validate_request_uri_by_min_len(const struct mg_http_message *m) {
+    if (m->uri.len > 0) {
+        return true;
+    }
+    return false;
+}
+
+static bool validate_request_uri(const struct mg_http_message *m) {
+    return validate_request_uri_by_min_len(m)
+           && validate_request_uri_by_max_len(m);
+}
+
+static bool is_get_method(const struct mg_http_message *m) {
+    return mg_strcmp(m->method, mg_str("GET"));
+}
+
+static bool is_post_method(const struct mg_http_message *m) {
+    return mg_strcmp(m->method, mg_str("POST"));
+}
+
+static bool validate_request_method(const struct mg_http_message *m) {
+    if (is_get_method(m)) {
+        return true;
+    }
+
+    if (is_post_method(m)) {
+        return true;
+    }
+    return false;
+}
+
+static bool validate_request(const struct mg_http_message *m) {
+    return validate_request_method(m) && validate_request_uri(m);
+}
+
 void route_request(struct mg_connection *c, const struct mg_http_message *m) {
+    if (!validate_request(m)) {
+        return;
+    }
+
     const struct mg_str uri = m->uri;
     const struct mg_str method = m->method;
 

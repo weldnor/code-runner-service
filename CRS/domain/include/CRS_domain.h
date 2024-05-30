@@ -6,6 +6,8 @@
 #define CRS_CRS_DOMAIN_H
 
 
+#include <stdbool.h>
+
 struct CRS_test {
     char *input;
     char *expected;
@@ -27,5 +29,7 @@ struct CRS_attempt {
 };
 
 enum CRS_lang CRS_lang_by_name(char *name);
+
+bool CRS_validate_attempt(struct CRS_attempt *attempt);
 
 #endif //CRS_CRS_DOMAIN_H

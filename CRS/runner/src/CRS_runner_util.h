@@ -2,8 +2,8 @@
 // Created by anton on 30.05.24.
 //
 
-#ifndef CRS_UTIL_H
-#define CRS_UTIL_H
+#ifndef CRS_CRS_RUNNER_UTIL_H
+#define CRS_CRS_RUNNER_UTIL_H
 
 
 char *create_temp_directory();
@@ -24,4 +24,4 @@ void delete_input_file(const char *temp_dir_path);
 
 void delete_output_file(const char *temp_dir_path);
 
-#endif //CRS_UTIL_H
+#endif //CRS_CRS_RUNNER_UTIL_H

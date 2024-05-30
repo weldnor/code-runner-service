@@ -1,7 +1,7 @@
 project(CRS_Common)
 
 set(SOURCE_FILES
-        src/CRS_Common.c
+        src/CRS_common.c
 )
 
 # Add the library with the specified source files

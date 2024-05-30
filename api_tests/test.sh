@@ -1,1 +1,1 @@
-hurl --variable host=localhost:8000 --test *.hurl
+hurl --variable host=localhost:8000 --file-root ./data --test *.hurlQ

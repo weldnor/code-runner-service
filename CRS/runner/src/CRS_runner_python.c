@@ -3,8 +3,8 @@
 //
 
 #include <stdlib.h>
-#include "CRS_Common.h"
-#include "util.h"
+#include "CRS_common.h"
+#include "CRS_runner_util.h"
 
 
 static char *get_timeout_as_string(int timeout_s);
@@ -28,11 +28,12 @@ static char *make_run_command_for_python(const char *temp_dir_path, const int ti
 }
 
 static char *get_timeout_as_string(int timeout_s) {
-    char result[10];
-    return itoa(timeout_s, result, 10);
+    char *result = calloc(100, sizeof(char));
+    itoa(timeout_s, result, 10);
+    return result;
 }
 
- int run_python_code(const char *temp_dir_path, const int timeout_s) {
+int run_python_code(const char *temp_dir_path, const int timeout_s) {
     char *command = make_run_command_for_python(temp_dir_path, timeout_s);
     return system(command);
 }

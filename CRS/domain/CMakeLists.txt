@@ -1,7 +1,7 @@
 project(CRS_Domain)
 
 set(SOURCE_FILES
-        src/CRS_Domain.c
+        src/CRS_domain.c
 )
 
 # Add the library with the specified source files

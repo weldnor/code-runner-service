@@ -2,9 +2,9 @@ project(CRS_Server)
 
 
 set(SOURCE_FILES
-        src/CRS_Server.c
-        src/router.c
-        src/router.h
+        src/CRS_server.c
+        src/CRS_router.c
+        src/CRS_router.h
 )
 
 # Add the library with the specified source files

@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include <CRS_Common.h>
+#include <CRS_common.h>
 
 static char *get_input_file_path(const char *temp_dir_path) {
     return concat(temp_dir_path, "/input.txt");

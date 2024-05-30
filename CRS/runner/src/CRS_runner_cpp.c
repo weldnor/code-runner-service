@@ -3,8 +3,8 @@
 //
 
 #include <stdlib.h>
-#include "CRS_Common.h"
-#include "util.h"
+#include "CRS_common.h"
+#include "CRS_runner_util.h"
 
 static char *get_timeout_as_string(int timeout_s);
 
@@ -44,8 +44,9 @@ int compile_cpp_code(const char *temp_dir_path) {
 }
 
 char *get_timeout_as_string(int timeout_s) {
-    char result[10];
-    return itoa(timeout_s, result, 10);
+    char *timeout_as_string = calloc(10, sizeof(char));
+    itoa(timeout_s, timeout_as_string, 10);
+    return timeout_as_string;
 }
 
 

@@ -1,16 +1,27 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include "CRS_Server.h"
-
+#include "CRS_server.h"
+#include "CRS_common.h"
 
 static void setup_output_buffer() { setvbuf(stdout, NULL, _IONBF, -1); }
 
-int main()
-{
+static void init_components() {
     setup_output_buffer();
+}
 
-    struct CRS_server_config config;
+static CRS_server_config create_server_config() {
+    CRS_server_config config;
     config.port = 8000;
+    config.addr = "0.0.0.0";
+    return config;
+}
 
+static void start_server() {
+    CRS_log_info("staring server...");
+    CRS_server_config config = create_server_config();
     CRS_server_start(config);
+}
+
+int main() {
+    init_components();
+    start_server();
 }
