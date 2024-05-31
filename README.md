@@ -56,7 +56,7 @@ Params:
 
 - code (string)
 - lang (string, cpp or python)
-- tests (array of {input: })
+- tests (array of {input: <string>, expected: <string>})
 
 Python example:
 
