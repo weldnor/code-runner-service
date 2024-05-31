@@ -4,6 +4,10 @@
 
 [video here](https://drive.google.com/file/d/17UXyFd7rWriJbLWzVJ_R0CXKYPD7tpu1/view?usp=drive_link)
 
+## Requirements
+
+[here](https://docs.google.com/document/d/1lSAybgVEM3qTog4T71DDacfdeO7ui5ABqPoZEYObTP8/edit?usp=sharing)
+
 ## Build & run
 
 via cmake:
