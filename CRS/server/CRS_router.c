@@ -1,5 +1,5 @@
 #include <mongoose.h>
-#include <CRS/server//CRS_router.h>
+#include <CRS/server/CRS_router.h>
 #include <CRS/domain/CRS_domain.h>
 #include <CRS/runner/CRS_runner.h>
 #include <CRS/common/CRS_common.h>
