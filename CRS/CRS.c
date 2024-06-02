@@ -4,7 +4,7 @@
 
 
 #include <stdio.h>
-#include "CRS/server/CRS_server.h"
+#include <CRS/server/CRS_server.h>
 
 static void setup_output_buffer() { setvbuf(stdout, NULL, _IONBF, -1); }
 
@@ -31,4 +31,4 @@ void CRS_start() {
 }
 
 
-#include "CRS.h"
+#include <CRS/CRS.h>
