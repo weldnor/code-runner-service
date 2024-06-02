@@ -20,8 +20,8 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CRS_APP_DIRECTORY})
 
 add_executable(
         ${AppName} main.c
-        third_party/src/mongoose.c
-        third_party/include/mongoose.h
+        third_party/mongoose/src/mongoose.c
+        third_party/mongoose/include/mongoose.h
 )
 
 add_subdirectory(third_party)
