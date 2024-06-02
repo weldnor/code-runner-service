@@ -17,6 +17,8 @@ add_library(CRS_Root
         server/CRS_router.h
         server/CRS_server.c
         server/CRS_server.h
+        CRS.c
+        CRS.h
 )
 
 target_include_directories(CRS_Root PUBLIC ${CMAKE_SOURCE_DIR})
